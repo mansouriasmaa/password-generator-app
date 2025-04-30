@@ -99,7 +99,9 @@ let themeSwitch = document.getElementById("theme-switch");
 themeSwitch.addEventListener("click", changeTheme);
 
 function changeTheme() {
-  document.body.classList.toggle("lightmode");
+  const localData = localStorage.getItem("class")==='lightmode'? null:'lightmode';
+  localStorage.setItem("class",localData);
+  (localData==='lightmode')? document.body.classList.add(localData): document.body.classList.remove('lightmode')
 }
 
 function generatePasswords() {
@@ -113,4 +115,13 @@ function generatePasswords() {
     password1El.textContent += characters[randomChar1];
     password2El.textContent += characters[randomChar2];
   }
+
+  localStorage.setItem("passOne",password1El.textContent)
+  localStorage.setItem("passTwo",password2El.textContent)
+}
+
+window.onload=()=>{
+document.body.classList.add(localStorage.getItem('class'))
+password1El.textContent = localStorage.getItem('passOne')
+password2El.textContent = localStorage.getItem('passTwo')
 }
